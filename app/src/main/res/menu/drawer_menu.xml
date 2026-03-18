@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_drawer_jokenpo"
+        android:title="@string/app_name" />
+    <item
+        android:id="@+id/nav_drawer_jogador"
+        android:title="@string/player_1" />
+    <item
+        android:id="@+id/nav_drawer_resultado"
+        android:title="@string/result" />
+</menu>
