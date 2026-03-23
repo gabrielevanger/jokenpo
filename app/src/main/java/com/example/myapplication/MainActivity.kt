@@ -1,6 +1,7 @@
 package com.example.myapplication
 
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -22,6 +23,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        logLifecycle("onCreate")
         setContentView(R.layout.activity_main)
 
         drawerLayout = findViewById(R.id.drawerLayout)
@@ -37,9 +39,9 @@ class MainActivity : AppCompatActivity() {
 
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.inicialFragment,
-                R.id.jogadorFragment,
-                R.id.resultadoFragment
+                R.id.homeFragment,
+                R.id.playerFragment,
+                R.id.resultFragment
             ),
             drawerLayout
         )
@@ -50,7 +52,7 @@ class MainActivity : AppCompatActivity() {
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             bottomNav.visibility =
-                if (destination.id == R.id.inicialFragment) View.GONE else View.VISIBLE
+                if (destination.id == R.id.homeFragment) View.GONE else View.VISIBLE
         }
     }
 
@@ -59,11 +61,41 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
+    override fun onStart() {
+        super.onStart()
+        logLifecycle("onStart")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        logLifecycle("onResume")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        logLifecycle("onPause")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        logLifecycle("onStop")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        logLifecycle("onDestroy")
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        logLifecycle("onSaveInstanceState")
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_restart -> {
                 navController.navigate(
-                    R.id.inicialFragment,
+                    R.id.homeFragment,
                     null,
                     NavOptions.Builder()
                         .setPopUpTo(R.id.nav_graph, true)
@@ -80,5 +112,13 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         return NavigationUI.navigateUp(navController, appBarConfiguration)
             || super.onSupportNavigateUp()
+    }
+
+    private fun logLifecycle(event: String) {
+        Log.d(TAG, "MainActivity -> $event")
+    }
+
+    companion object {
+        private const val TAG = "Lifecycle"
     }
 }

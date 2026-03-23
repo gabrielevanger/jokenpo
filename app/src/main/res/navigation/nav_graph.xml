@@ -3,32 +3,32 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/inicialFragment">
+    app:startDestination="@id/homeFragment">
 
     <fragment
-        android:id="@+id/inicialFragment"
-        android:name="com.example.myapplication.InicialFragment"
+        android:id="@+id/homeFragment"
+        android:name="com.example.myapplication.HomeFragment"
         android:label="@string/app_name"
-        tools:layout="@layout/fragment_inicial">
+        tools:layout="@layout/fragment_home">
         <action
-            android:id="@+id/action_inicialFragment_to_game_graph"
+            android:id="@+id/action_homeFragment_to_game_graph"
             app:destination="@id/game_graph" />
     </fragment>
 
     <navigation
         android:id="@+id/game_graph"
-        app:startDestination="@id/jogadorFragment">
+        app:startDestination="@id/playerFragment">
 
         <fragment
-            android:id="@+id/jogadorFragment"
-            android:name="com.example.myapplication.JogadorFragment"
-            android:label="@string/player_1"
-            tools:layout="@layout/fragment_jogador" />
+            android:id="@+id/playerFragment"
+            android:name="com.example.myapplication.PlayerFragment"
+            android:label="@string/player_label"
+            tools:layout="@layout/fragment_player" />
 
         <fragment
-            android:id="@+id/resultadoFragment"
-            android:name="com.example.myapplication.ResultadoFragment"
-            android:label="@string/result"
-            tools:layout="@layout/fragment_resultado" />
+            android:id="@+id/resultFragment"
+            android:name="com.example.myapplication.ResultFragment"
+            android:label="@string/result_label"
+            tools:layout="@layout/fragment_result" />
     </navigation>
 </navigation>

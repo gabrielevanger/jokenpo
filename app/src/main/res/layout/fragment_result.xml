@@ -5,14 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FAFAFA"
-    tools:context=".ResultadoFragment">
+    tools:context=".ResultFragment">
 
     <TextView
         android:id="@+id/tvResultTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="80dp"
-        android:text="@string/result"
+        android:text="@string/result_label"
         android:textSize="42sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -24,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:text="@string/result_text"
+        android:text="@string/result_message"
         android:textAlignment="center"
         android:textSize="28sp"
         android:textStyle="bold"

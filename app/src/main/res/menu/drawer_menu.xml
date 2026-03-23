@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@id/jogadorFragment"
-        android:title="@string/player_1" />
+        android:id="@id/playerFragment"
+        android:title="@string/player_label" />
     <item
-        android:id="@id/resultadoFragment"
-        android:title="@string/result" />
+        android:id="@id/resultFragment"
+        android:title="@string/result_label" />
 </menu>
