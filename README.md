@@ -22,5 +22,3 @@ App Android (Kotlin) do jogo **Pedra, Papel e Tesoura**, refatorado com **Jetpac
 - `MainActivity` — `NavHostFragment`, integração com **AppBar** e **Navigation Drawer** via `NavigationUI`.
 
 ---
-
-Trabalho acadêmico — Módulo 12 (Navigation), EBAC.
