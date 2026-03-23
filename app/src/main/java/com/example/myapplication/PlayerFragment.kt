@@ -5,12 +5,18 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import androidx.fragment.app.Fragment
 
 class PlayerFragment : Fragment() {
     private lateinit var spinnerMove: Spinner
+    private var listener: PlayerListener? = null
+
+    interface PlayerListener {
+        fun onPlaySelected(selectedPlay: String)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,6 +46,29 @@ class PlayerFragment : Fragment() {
         spinnerMove.adapter = adapter
         val selectedPosition = savedInstanceState?.getInt(KEY_SELECTED_MOVE) ?: 0
         spinnerMove.setSelection(selectedPosition)
+        spinnerMove.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                selectedItemView: View?,
+                position: Int,
+                id: Long
+            ) {
+                listener?.onPlaySelected(options[position])
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) = Unit
+        }
+    }
+
+    override fun onAttach(context: android.content.Context) {
+        super.onAttach(context)
+        listener = context as? PlayerListener
+            ?: error("MainActivity must implement PlayerListener")
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        listener = null
     }
 
     override fun onStart() {

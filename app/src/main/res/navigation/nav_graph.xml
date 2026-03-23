@@ -29,6 +29,11 @@
             android:id="@+id/resultFragment"
             android:name="com.example.myapplication.ResultFragment"
             android:label="@string/result_label"
-            tools:layout="@layout/fragment_result" />
+            tools:layout="@layout/fragment_result">
+            <argument
+                android:name="arg_current_play"
+                app:argType="string"
+                android:defaultValue="Pedra" />
+        </fragment>
     </navigation>
 </navigation>

@@ -6,6 +6,9 @@
     <string name="select_move_label">Selecionar jogada</string>
     <string name="result_label">Resultado</string>
     <string name="result_message">O jogador XXX ganhou</string>
+    <string name="result_win">Você venceu!</string>
+    <string name="result_draw">Empate!</string>
+    <string name="result_loss">Você perdeu!</string>
     <string name="restart_game">Reiniciar jogo</string>
     <string name="drawer_open">Abrir menu</string>
     <string name="drawer_close">Fechar menu</string>

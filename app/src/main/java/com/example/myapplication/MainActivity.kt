@@ -15,20 +15,23 @@ import androidx.navigation.ui.NavigationUI
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), PlayerFragment.PlayerListener {
 
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var navController: NavController
+    private lateinit var bottomNav: BottomNavigationView
+    private var currentPlay: String = "Pedra"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         logLifecycle("onCreate")
+        currentPlay = savedInstanceState?.getString(KEY_CURRENT_PLAY) ?: "Pedra"
         setContentView(R.layout.activity_main)
 
         drawerLayout = findViewById(R.id.drawerLayout)
         val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
-        val bottomNav = findViewById<BottomNavigationView>(R.id.bottomNavigation)
+        bottomNav = findViewById(R.id.bottomNavigation)
         val navView = findViewById<NavigationView>(R.id.navigationView)
 
         val navHost =
@@ -48,7 +51,7 @@ class MainActivity : AppCompatActivity() {
 
         NavigationUI.setupWithNavController(toolbar, navController, appBarConfiguration)
         NavigationUI.setupWithNavController(navView, navController)
-        NavigationUI.setupWithNavController(bottomNav, navController)
+        setupBottomNavigation()
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             bottomNav.visibility =
@@ -88,6 +91,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
+        outState.putString(KEY_CURRENT_PLAY, currentPlay)
         logLifecycle("onSaveInstanceState")
     }
 
@@ -114,11 +118,41 @@ class MainActivity : AppCompatActivity() {
             || super.onSupportNavigateUp()
     }
 
+    override fun onPlaySelected(selectedPlay: String) {
+        currentPlay = selectedPlay
+        Log.d(TAG, "Current play selected: $currentPlay")
+    }
+
+    private fun setupBottomNavigation() {
+        bottomNav.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.playerFragment -> {
+                    navController.navigate(R.id.playerFragment)
+                    true
+                }
+
+                R.id.resultFragment -> {
+                    val args = Bundle().apply {
+                        putString(ResultFragment.ARG_CURRENT_PLAY, currentPlay)
+                    }
+                    navController.navigate(
+                        R.id.resultFragment,
+                        args
+                    )
+                    true
+                }
+
+                else -> false
+            }
+        }
+    }
+
     private fun logLifecycle(event: String) {
         Log.d(TAG, "MainActivity -> $event")
     }
 
     companion object {
         private const val TAG = "Lifecycle"
+        private const val KEY_CURRENT_PLAY = "key_current_play"
     }
 }
